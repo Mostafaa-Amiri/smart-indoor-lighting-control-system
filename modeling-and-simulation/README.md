@@ -131,4 +131,4 @@ It supports:
 - sensor reduction studies,
 - and long-term development of scalable smart-lighting architectures.
 
-For the corresponding hardware and controller implementation, see the [hardware documentation](../hardware/README.md), the [firmware section](../firmware/README.md), and the [central controller software](../software/README.md).
+For the corresponding hardware and controller implementation, see the [hardware documentation](../hardware/README.md), the [firmware section](../firmware/README.md), and the [central controller software](../control-and-optimization/README.md).
