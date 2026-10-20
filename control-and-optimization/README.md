@@ -37,27 +37,27 @@ The controller uses two optimization strategies.
 
 ### 1) Minimum-energy linear programming
 
-The primary LP computes panel duties that satisfy the lux constraints while minimizing estimated electrical power:
+The LP computes panel duties that satisfy the illuminance constraints while minimizing estimated electrical power.
 
 - **Decision variables:** panel duty cycles
-- **Constraint:** each controlled sensor/zone must reach its required lamp lux
+- **Constraint:** each controlled sensor or zone must reach its required lamp lux
 - **Objective:** minimize total weighted electrical power
 
-This method is used when the goal is the lowest-power feasible solution.
+This mode is used when the goal is the lowest-power feasible lighting solution.
 
 ### 2) Weighted smooth-duty optimization
 
-A second optimization mode extends the basic power-minimization problem with additional weighted penalties. Its objective combines:
+A second optimization mode extends the power-minimization problem with additional weighted penalties. Its objective combines:
 
 - **power consumption**
 - **duty non-uniformity** among the allowed active panels
 - **duty change** relative to the current panel settings
 
-The implemented solver uses `scipy.optimize.minimize` with **SLSQP**. Because the regularization terms are based on mean-squared duty deviations and duty changes, this formulation is effectively a **weighted quadratic-like optimization** solved numerically. In practical terms, it aims to produce solutions that are not only energy-efficient, but also smoother, more balanced, and less aggressive in step-to-step changes.
+The implemented solver uses `scipy.optimize.minimize` with **SLSQP**. Because the objective includes mean-squared penalty terms, it can be interpreted as a **weighted quadratic-like nonlinear optimization**. In practice, this mode explores a more balanced compromise between minimum power, smoother transitions, and more regular panel utilization.
 
-### About nonlinear / quadratic optimization
+### About nonlinear and quadratic optimization
 
-In this released controller, the implemented advanced method is the weighted SLSQP-based optimization described above. It can be viewed as a nonlinear numerical solution of a weighted objective with quadratic penalty terms. This was useful for exploring trade-offs beyond pure minimum-power LP, especially when smoother lighting behavior and more regular panel usage were desired.
+The released implementation contains the LP solver and the weighted SLSQP-based optimizer. The advanced method is therefore not a pure textbook quadratic-programming implementation, but it does realize a nonlinear weighted objective with quadratic-like penalties. This formulation was useful for studying trade-offs beyond strict power minimization, especially when visual smoothness and reduced duty fluctuations were important.
 
 ## Calibration data
 
@@ -65,15 +65,19 @@ The included `calibration.json` belongs to this controller version and records *
 
 ## Dashboard screenshots
 
-### Main dashboard / Auto Control overview
+### Control page and panel monitoring
 
-![Main dashboard overview](images/dashboard_auto_overview.png)
+![Control page and panels](images/control_panels.png)
+
+### Sensors page and regression-model check
+
+![Sensors and regression model](images/sensors_regression.png)
 
 ### Occupancy page
 
 ![Occupancy dashboard](images/occupancy_dashboard.png)
 
-### Target-lux configuration
+### Occupancy-based target-lux configuration
 
 ![Target lux configuration](images/target_lux_configuration.png)
 
@@ -84,6 +88,10 @@ The included `calibration.json` belongs to this controller version and records *
 ### Reference-sensor daylight estimate and final panel duties
 
 ![Reference sensor estimate and duties](images/reference_sensor_estimate_and_duties.png)
+
+### Calibration / lux-per-watt matrix
+
+![Lux per watt matrix](images/lux_watt_matrix.png)
 
 ### YOLO occupancy-zone detection
 
