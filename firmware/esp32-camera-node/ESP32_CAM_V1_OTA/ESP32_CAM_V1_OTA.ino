@@ -5,7 +5,9 @@
 #include <WiFi.h>
 
 // ----------- WIFI -----------
-#include "config.h"  // Create locally from config.example.h; do not commit config.h
+const char* WIFI_SSID = "***";
+const char* WIFI_PASS = "***";
+
 // ----------- CAMERA DEFAULTS -----------
 static const uint32_t XCLK_FREQ_HZ = 10000000;
 static const framesize_t DEFAULT_FRAME_SIZE = FRAMESIZE_HD;  // 1280x720. Use FRAMESIZE_SVGA if HD is not available.

@@ -13,7 +13,9 @@
 #include <BH1750.h>
 
 // ----------- WIFI / MQTT -----------
-#include "config.h"  // Create locally from config.example.h; do not commit config.h
+const char* WIFI_SSID = "***";
+const char* WIFI_PASS = "***";
+const char* MQTT_HOST = "192.168.1.77";   // PC IP
 const uint16_t MQTT_PORT = 1883;
 
 // ----------- globals -----------
