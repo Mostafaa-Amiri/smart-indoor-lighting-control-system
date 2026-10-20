@@ -10,6 +10,20 @@ This experimentally developed Python controller integrates wireless lighting har
 
 The controller combines measured lux, occupancy information, and the experimentally obtained sensor–panel gain matrix to calculate new dimming commands and publish them to the lighting network.
 
+## System block diagrams
+
+### Simple high-level architecture
+
+![Simple block diagram](images/block_diagram_simple.png)
+
+This simplified view shows the main signal flow from user target illuminance and sensing units to the central controller, and from the controller to the PWM-dimmed lighting panels.
+
+### Detailed control architecture
+
+![Detailed block diagram](images/block_diagram_detailed.png)
+
+This detailed view shows the controller block in more explicit form, including occupancy conditions, measured illuminance inputs, preprocessing, occupancy and illuminance matrices, and the final control signals sent to the lighting drivers and lamps.
+
 ## Software modules
 
 | File | Engineering function |
