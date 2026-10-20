@@ -6,8 +6,6 @@ This page documents the hardware developed and evaluated for the **Smart Indoor 
 
 The project combines **PCB and circuit design, embedded electronics, communication interfaces, thermal considerations, prototyping and experimental evaluation**. Some modules are completed prototypes; conceptual designs are labeled accordingly. Photographs, PCB renders and diagrams are provided below.
 
-> **Documentation status:** Research and prototype documentation. Specifications and comparative results are reported from project notes; they are not product certifications or safety approvals. Detailed test conditions are being added.
-
 ## Contents
 
 1. [Why custom hardware?](#why-custom-lighting-hardware)
