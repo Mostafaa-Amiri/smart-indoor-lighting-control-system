@@ -1,0 +1,4 @@
+# Local Wi-Fi and MQTT configuration: never commit
+config.h
+secrets.h
+*.local.h
