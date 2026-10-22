@@ -66,7 +66,15 @@ After a desk becomes vacant, the panels serving that desk switch off following a
 - **On-the-Fly Frequency-Oriented Calibration for Real-Time, Power-Efficient, and Dynamic Control of Smart Lighting Systems** — IEEE ICEE 2026. [DOI: 10.1109/ICEE70628.2026.11710520](https://doi.org/10.1109/icee70628.2026.11710520)
 
 ---
-Research collaboration: Interested in collaborating on intelligent lighting, embedded systems, optimization, or energy-efficient control? Feel free to contact me through LinkedIn.
+
+## Research Collaboration
+
+Interested in collaborating on **intelligent lighting, embedded systems, optimization, or energy-efficient control**?
+
+I'm open to research collaborations, PhD opportunities, and engineering projects.
+
+Feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/mostafaa-amiri/).
+
 ---
 
 ## Copyright and Citation
