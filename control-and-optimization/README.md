@@ -61,9 +61,7 @@ Here, $P_j$ is the power of panel $j$ at full output, $d_j$ is its duty cycle (%
 An alternative objective retains the illuminance constraints but balances power consumption against two squared penalties: differences between the active panels' duty cycles, and changes relative to their previous values.
 
 $$
-J(\mathbf{d}) = \lambda_P P(\mathbf{d})
-+ \frac{\lambda_U}{|A|}\sum_{j\in A}(d_j-\bar{d}_A)^2
-+ \frac{\lambda_\Delta}{|A|}\sum_{j\in A}(d_j-d_j^{\mathrm{prev}})^2.
+J(\mathbf{d}) = \lambda_P P(\mathbf{d}) + \frac{\lambda_U}{|A|}\sum_{j\in A}(d_j-\bar{d}_A)^2 + \frac{\lambda_\Delta}{|A|}\sum_{j\in A}(d_j-d_j^{\mathrm{prev}})^2
 $$
 
 $A$ denotes the allowed panel set. The weights control the trade-off between **energy use**, **duty uniformity**, and **changes between successive commands**. This is a weighted objective with quadratic penalty terms and linear illuminance constraints; it is solved numerically using SciPy's `minimize` with **SLSQP**. It differs from pure minimum-power LP by discouraging uneven or unnecessarily large duty adjustments.
