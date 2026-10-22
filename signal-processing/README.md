@@ -1,65 +1,69 @@
-# MATLAB Signal Processing and Flicker Characterization
+# Signal Processing and Flicker Characterization
 
-**Smart Indoor Lighting Control System · University of Tehran**
+**Smart Indoor Lighting Control System**  
+*CST Lab · University of Tehran*
 
-This section presents the MATLAB signal-processing work used to characterize measured light-intensity fluctuations and investigate **PWM modulation, spectral components, and flicker-related frequency behavior**. The analysis also supports the frequency-oriented calibration research conducted for the smart-lighting system.
+## Overview
 
-## Processing approach
+This section documents the MATLAB signal-processing methods used to analyze optical measurements from the smart-lighting experiments. Time- and frequency-domain processing was applied to characterize **PWM-modulated illuminance**, identify dominant spectral components, and support the project's frequency-oriented calibration research.
 
-Measured light-sensor samples are examined in the **time domain** and transformed into the **frequency domain** using FFT. The MATLAB workflows include DC-offset removal, Hann or five-term Flattop windowing, single-sided spectrum calculation with coherent-gain compensation, spectral peak detection, and parabolic interpolation for refined peak-frequency estimates. Selected scripts also merge nearby detected peaks for reporting.
+## Signal-Processing Methodology
 
-For a measured sequence `x[n]`, the main sequence is:
+The measurement sequence is processed in the time domain and then transformed using the **fast Fourier transform (FFT)**. The MATLAB workflows include:
 
-1. Subtract the mean to isolate the fluctuating component.
-2. Apply the selected window to reduce spectral leakage.
-3. Calculate the FFT and normalize the single-sided magnitude spectrum, accounting for window coherent gain.
-4. Identify and report prominent frequency components and their amplitudes.
+1. **DC removal** to separate the fluctuating component from the signal's average value.
+2. **Windowing** using a five-term Flattop or Hann window to manage spectral leakage.
+3. **Single-sided FFT normalization** and **coherent-gain compensation** for amplitude interpretation.
+4. **Spectral peak detection** and parabolic interpolation to estimate dominant frequencies and amplitudes.
+5. **Peak grouping** in the applicable scripts to avoid reporting nearby peaks separately.
 
-## MATLAB scripts
+The Flattop and Hann implementations allow comparison between amplitude-focused analysis and the DSP pipeline used for ESP32-based processing. The separate frequency-axis rescaling variant is a display transformation, not a different physical measurement frequency.
 
-| Script | Function |
+## MATLAB Implementation
+
+| MATLAB script | Purpose |
 | --- | --- |
-| [`fft_flattop_amplitude_corrected.m`](matlab/fft_flattop_amplitude_corrected.m) | Five-term Flattop-window FFT with sample scaling, corrected amplitudes, peak interpolation, and nearby-peak grouping. |
-| [`fft_flattop_frequency_rescaled.m`](matlab/fft_flattop_frequency_rescaled.m) | Similar Flattop FFT with **intentional frequency/time-axis rescaling for presentation**. Rescaled axes are not an additional measured frequency. |
-| [`fft_flattop_time_frequency.m`](matlab/fft_flattop_time_frequency.m) | Time-domain and single-sided frequency-domain plots, with prominent-peak analysis. |
-| [`fft_hann_esp32_comparison.m`](matlab/fft_hann_esp32_comparison.m) | Hann-window FFT using magnitude scaling and peak interpolation for comparison with the ESP32 DSP processing pipeline. |
+| [`fft_flattop_amplitude_corrected.m`](matlab/fft_flattop_amplitude_corrected.m) | Flattop-window FFT, sample scaling, amplitude correction, peak interpolation, and merging of nearby reported peaks. |
+| [`fft_flattop_frequency_rescaled.m`](matlab/fft_flattop_frequency_rescaled.m) | Flattop FFT with an intentionally rescaled frequency/time axis for visualization. |
+| [`fft_flattop_time_frequency.m`](matlab/fft_flattop_time_frequency.m) | Time-domain and single-sided frequency-domain plots with prominent-peak extraction. |
+| [`fft_hann_esp32_comparison.m`](matlab/fft_hann_esp32_comparison.m) | Hann-window FFT and peak analysis designed for comparison with the ESP32 signal-processing pipeline. |
 
-The four scripts retain their original computations and parameters. Only computer-specific CSV directory paths were replaced by relative CSV filenames (`data4.csv`, `data20.csv`, `data16.csv`, and `data5.csv`). Place the corresponding measurement files in the MATLAB working directory, or point each script to their actual location.
+The scripts retain their original computations and parameters. Computer-specific input paths were replaced with relative CSV filenames: `data4.csv`, `data20.csv`, `data16.csv`, and `data5.csv`.
 
-## Experimental figures
+## Experimental Figures
 
-### Measured illuminance signal
+### Measured Illuminance — Time Domain
 
-![Measured illuminance in the time domain](images/measured_illuminance_time_domain.png)
+![Measured illuminance time-domain signal](images/measured_illuminance_time_domain.png)
 
-**Time-domain sensor output:** variations in recorded illuminance during the lighting experiment.
+*Time-domain illuminance variations recorded during a lighting experiment.*
 
-### FFT of the measured illuminance
+### Measured Illuminance — Frequency Domain
 
-![Frequency spectrum of measured illuminance](images/measured_illuminance_fft.png)
+![FFT spectrum of measured illuminance](images/measured_illuminance_fft.png)
 
-**Frequency-domain analysis:** spectral peaks extracted from the measured light signal.
+*FFT spectrum used to identify dominant modulation-related frequency components.*
 
-### PWM-modulated light — time domain
+### PWM-Modulated Light — Time Domain
 
-![PWM light waveform in time domain](images/pwm_time_domain.png)
+![PWM-modulated illuminance waveform](images/pwm_time_domain.png)
 
-**Time-domain waveform:** measured illuminance variation from PWM-modulated lighting panels.
+*Measured optical waveform under PWM dimming.*
 
-### PWM-modulated light — frequency domain
+### PWM-Modulated Light — Frequency Domain
 
-![PWM light frequency spectrum](images/pwm_fft_spectrum.png)
+![PWM-modulated light FFT spectrum](images/pwm_fft_spectrum.png)
 
-**FFT spectrum:** dominant modulation frequency and additional spectral components; peak frequency and amplitude are annotated in the plot.
+*Frequency-domain representation of the corresponding PWM-modulated signal.*
 
-### Additional PWM waveform example
+### Additional PWM Waveform
 
-![Waveform at 90 percent duty and 100 Hz](images/pwm_90percent_waveform.png)
+![PWM waveform at 90 percent duty](images/pwm_90percent_waveform.png)
 
-**Additional measured waveform:** lighting panel at **90% duty cycle**, **100 Hz** nominal modulation frequency, and **2 m** measurement distance, as labeled in the original figure.
+*Measured waveform labeled with 90% PWM duty cycle, 100 Hz nominal modulation frequency, and 2 m measurement distance.*
 
-## Related research
+## Related Documentation
 
-The mathematical procedure and frequency-oriented calibration methodology are discussed in the conference paper **“On-the-Fly Frequency-Oriented Calibration for Real-Time, Power-Efficient, and Dynamic Control of Smart Lighting Systems”** ([DOI: 10.1109/ICEE70628.2026.11710520](https://doi.org/10.1109/ICEE70628.2026.11710520)).
+The mathematical approach and frequency-oriented calibration method are discussed in **On-the-Fly Frequency-Oriented Calibration for Real-Time, Power-Efficient, and Dynamic Control of Smart Lighting Systems** ([IEEE ICEE 2026](https://doi.org/10.1109/ICEE70628.2026.11710520)).
 
-For the central control application, see [`control-and-optimization/`](../control-and-optimization/). Hardware experiments and the flicker measurement module are described in [`hardware/`](../hardware/).
+[Main Project Overview](../README.md) · [Hardware Development](../hardware/README.md) · [Control and Optimization](../control-and-optimization/README.md)

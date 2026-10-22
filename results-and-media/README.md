@@ -1,9 +1,24 @@
 # Results and Media
 
-## Smart Indoor Lighting Control System — Experimental Demonstration
+**Smart Indoor Lighting Control System**  
+*CST Lab · University of Tehran*
 
-This video demonstrates **daylight-aware, occupancy-based lighting control** with a target illuminance of **400 lux** at the occupied desk. The controller adjusts the relevant lighting panels to account for available daylight and calculates their dimming levels to meet the illuminance target with **minimum energy consumption**. When I move to another desk, the newly occupied desk is illuminated at its calculated dimming level, while the panels serving the desk I have left switch off after a **15-second delay**. At the beginning and end of the demonstration, no desks are occupied and all lighting panels are off. **I am the person in the video**, moving between desks to test the system at different locations.
+## Overview
 
-[![Watch the Smart Indoor Lighting Control System demonstration](images/demo-thumbnail.jpg)](https://youtube.com/shorts/Hcsu9ZKmqog?feature=share)
+This section presents the experimental demonstration of the **Smart Indoor Lighting Control System** operating in the CST Lab testbed at the University of Tehran.
 
-**[Watch the demonstration on YouTube](https://youtube.com/shorts/Hcsu9ZKmqog?feature=share)**
+## Experimental Demonstration
+
+The recording shows **daylight-aware, occupancy-responsive control** with a target illuminance of **400 lx** at the occupied desk. At the beginning, all lighting panels are off. The researcher moves between workstations to test different occupancy locations, and the system activates the appropriate panels according to the detected occupancy and available daylight.
+
+The controller calculates panel dimming levels to meet the illuminance target while minimizing estimated electrical power. When a desk becomes vacant, its associated panels switch off after a **15-second delay**; the newly occupied workstation receives the required artificial lighting. At the end, all lighting panels return to the off state.
+
+[![Watch the CST Lab smart lighting demonstration](images/demo-thumbnail.jpg)](https://youtube.com/shorts/Hcsu9ZKmqog?feature=share)
+
+*Video: laboratory demonstration of occupancy-adaptive, daylight-aware lighting control. The person moving between desks is the researcher conducting the test.*
+
+**[Watch the experimental demonstration on YouTube](https://youtube.com/shorts/Hcsu9ZKmqog?feature=share)**
+
+## Related Documentation
+
+[Main Project Overview](../README.md) · [Control and Optimization](../control-and-optimization/README.md) · [Hardware Development](../hardware/README.md)

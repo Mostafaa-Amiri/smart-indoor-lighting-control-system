@@ -1,72 +1,70 @@
 # Smart Indoor Lighting Control System
 
-**Daylight-aware · Occupancy-adaptive · Optimization-based lighting**
+**CST Lab · University of Tehran**  
+*Daylight-Aware · Occupancy-Adaptive · Optimization-Based Lighting*
 
-**CST Lab | University of Tehran | Research and experimental engineering**
+## Overview
 
-An end-to-end smart indoor lighting platform designed, implemented, and experimentally evaluated at **CST Lab, University of Tehran**. The system integrates custom LED lighting hardware, Wi-Fi-enabled sensing, occupancy detection, daylight estimation, real-time control, and optimization to deliver the required illuminance at occupied workstations with reduced electrical power consumption.
+The **Smart Indoor Lighting Control System** is an integrated research platform designed, implemented, and experimentally evaluated at **CST Lab, University of Tehran**. It brings together custom LED lighting hardware, networked illuminance and occupancy sensors, daylight modeling, experimental calibration, and optimization-based control.
 
-## Experimental demonstration
+The system adjusts lighting at occupied workstations according to available daylight and the desired illuminance level, while minimizing estimated electrical power consumption. The repository documents the electronics, firmware, central controller, physical modeling, MATLAB signal processing, and laboratory demonstrations.
 
-The video demonstrates an **occupancy-based, daylight-adaptive lighting experiment with a 400 lux target** at the occupied desk. Initially, all lighting panels are off. As I move between desks to test different occupancy locations, the controller activates the relevant panels and calculates appropriate dimming levels based on the available daylight and their measured contributions to the target area.
+## System Architecture
 
-When a desk becomes vacant, its associated panels switch off after a **15-second delay**. The system illuminates the newly occupied desk using an optimized combination of panels to achieve the target illuminance while minimizing estimated power consumption. At the end of the demonstration, all panels return to the off state.
+![High-level smart lighting system architecture](control-and-optimization/images/block_diagram_simple.png)
 
-[![Watch the experimental demonstration](results-and-media/images/demo-thumbnail.jpg)](https://youtube.com/shorts/Hcsu9ZKmqog?feature=share)
+*High-level signal flow from user-defined illuminance targets and environmental sensing to the central controller and dimmable lighting panels.*
 
-**[▶ Watch the experimental demonstration on YouTube](https://youtube.com/shorts/Hcsu9ZKmqog?feature=share)** · [More details and media](results-and-media/README.md)
+Occupancy information determines which workstations require artificial lighting. Illuminance measurements and daylight estimates establish the remaining lighting demand. The controller then uses an experimentally calibrated **luminaire-to-sensor gain matrix** and panel-power information to select appropriate lighting panels and calculate PWM duty-cycle commands.
 
-## CST Lab — Experimental testbed
+[View the detailed control architecture](control-and-optimization/images/block_diagram_detailed.png).
 
-All hardware development, system integration, and laboratory experiments documented in this project were conducted at **CST Lab, University of Tehran**. The testbed comprises instrumented workstations, installed lighting panels, measurement devices, and a central control and monitoring setup.
+## Experimental Testbed
+
+The project was developed and evaluated at **CST Lab, University of Tehran**, using installed ceiling-mounted LED panels, workstation partitions, illuminance and occupancy sensing, measurement instruments, and a central monitoring and control station.
 
 <p align="center">
-  <img src="assets/cst-lab-control-station.jpg" alt="CST Lab experimental lighting testbed showing monitoring and controller workstations" width="49%">
-  <img src="assets/cst-lab-installed-lighting.jpg" alt="Custom lighting panels installed in the ceiling at CST Lab, University of Tehran" width="49%">
+  <img src="assets/cst-lab-control-station.jpg" alt="CST Lab workstations and central lighting-control and simulation displays" width="49%">
+  <img src="assets/cst-lab-installed-lighting.jpg" alt="Ceiling-mounted lighting panels installed in the CST Lab experimental testbed" width="49%">
 </p>
 
-<p align="center"><em>Laboratory measurement and control setup (left) and ceiling-mounted lighting-panel installation (right).</em></p>
+<p align="center"><em>CST Lab experimental setup: monitoring and simulation workstations (left), and installed ceiling lighting panels (right).</em></p>
 
-## System architecture
+## Experimental Demonstration
 
-![Smart lighting system architecture](control-and-optimization/images/block_diagram_simple.png)
+The video demonstrates **daylight-aware, occupancy-responsive lighting with a 400 lx target** at the occupied desk. Initially, all lighting panels are off. The researcher moves between workstations to test different occupancy locations; the system activates the relevant lighting panels and computes dimming levels based on available daylight and each panel's contribution to the target area.
 
-User-defined illuminance targets and sensor data are processed by the central controller, which estimates the necessary artificial-light contribution and sends dimming commands to the lighting panels. Occupancy information determines which zones require lighting, while the measured lamp-to-sensor relationships determine which panels can serve each zone most efficiently.
+After a desk becomes vacant, the panels serving that desk switch off following a **15-second delay**. The newly occupied area is illuminated using the optimized panel settings. All panels are off again at the end of the demonstration.
 
-[View the detailed control block diagram](control-and-optimization/images/block_diagram_detailed.png)
+[![Watch the smart indoor lighting experimental demonstration](results-and-media/images/demo-thumbnail.jpg)](https://youtube.com/shorts/Hcsu9ZKmqog?feature=share)
 
-## Engineering highlights
+**[Watch the full experimental demonstration on YouTube](https://youtube.com/shorts/Hcsu9ZKmqog?feature=share)** · [Results and Media](results-and-media/README.md)
 
-- **Custom lighting electronics:** three generations of smart LED panels, modular constant-current LED drivers, capacitive touch switching, and flicker-measurement hardware.
-- **Embedded sensing and communication:** ESP8266/ESP32 firmware, Wi-Fi illuminance sensors, mmWave presence sensors, ESP32-CAM, and MQTT integration.
-- **Physics-based lighting models:** DIALux electric-light studies and Honeybee/Radiance daylight simulation for spatial illuminance and lighting uniformity.
-- **Experimental calibration:** individual-panel measurements to obtain lamp-to-sensor gain coefficients, electrical-light contributions, and lux-per-watt effectiveness.
-- **Optimization-based lighting control:** minimum-power linear programming with illuminance constraints and an additional weighted optimization method that penalizes duty non-uniformity and abrupt changes.
-- **Occupancy-aware automation:** camera/YOLO and radar-based presence information, zone-specific lux targets, and adaptive dimming.
-- **Signal processing:** MATLAB time-domain analysis, FFT, windowing, and spectral-peak extraction for flicker characterization and frequency-oriented calibration.
+## Engineering Contributions
 
-## Explore the repository
+- **Lighting hardware:** three generations of custom LED panels, modular constant-current drivers, capacitive touch switching, and optical flicker-measurement hardware.
+- **Embedded systems:** ESP8266/ESP32 firmware, Wi-Fi illuminance sensors, mmWave occupancy sensors, camera acquisition, and MQTT communication.
+- **Modeling and simulation:** DIALux electric-light evaluation and Honeybee/Radiance daylight simulations for illuminance distribution and uniformity analysis.
+- **Experimental calibration:** measured luminaire-to-sensor gain coefficients, estimates of individual panel contributions, and lux-per-watt comparisons.
+- **Control and optimization:** energy-minimizing linear programming (LP), a weighted quadratic-objective optimization solved using SLSQP, and occupancy-aware automatic dimming.
+- **Signal processing:** MATLAB waveform analysis, FFT, windowing, spectral peak identification, and frequency-oriented lighting characterization.
 
-| Section | Contents |
+## Repository Sections
+
+| Section | Description |
 | --- | --- |
-| **[Hardware](hardware/README.md)** | Custom LED panels (V1–V3), LED drivers, lighting and presence sensors, touch switches, and flicker meter; PCB images and schematics. |
-| **[Embedded Firmware](firmware/README.md)** | ESP8266 and ESP32 firmware for panel dimming, illuminance sensing, occupancy sensors, and camera acquisition. |
-| **[Control & Optimization](control-and-optimization/README.md)** | Python/Streamlit central controller, MQTT backend, experimental calibration, LP and weighted optimization, occupancy logic, and dashboard screenshots. |
-| **[Modeling & Simulation](modeling-and-simulation/README.md)** | DIALux and Honeybee/Radiance models, daylight maps, illuminance distribution, gain analysis, and zoning. |
-| **[Signal Processing & MATLAB](signal-processing/README.md)** | MATLAB FFT scripts, sampled-light waveforms, spectral plots, and flicker analysis. |
-| **[Results & Media](results-and-media/README.md)** | Video demonstration and experimental media. |
+| **[Hardware](hardware/README.md)** | LED panel development (V1–V3), LED drivers, sensors, smart touch switches, and flicker-measurement circuits, with schematics and photographs. |
+| **[Embedded Firmware](firmware/README.md)** | ESP8266/ESP32 firmware for dimming, measurement, occupancy sensing, and camera acquisition. |
+| **[Control and Optimization](control-and-optimization/README.md)** | Python/Streamlit central controller, MQTT backend, calibration, daylight estimation, LP and weighted optimization, and dashboard figures. |
+| **[Modeling and Simulation](modeling-and-simulation/README.md)** | DIALux and Honeybee/Radiance models, daylight and electric-light analysis, zoning, and reduced-sensor prediction studies. |
+| **[Signal Processing](signal-processing/README.md)** | MATLAB FFT scripts and measured optical-signal waveforms for flicker and frequency analysis. |
+| **[Results and Media](results-and-media/README.md)** | The occupancy-adaptive lighting demonstration video and laboratory media. |
 
-## Optimization and control
-
-The central controller combines estimated daylight, calibrated panel contributions, zone-specific illuminance targets, and occupancy status. Its **linear programming (LP)** formulation minimizes estimated lighting power while enforcing illuminance targets and PWM duty-cycle limits. A second **weighted SLSQP-based formulation** includes quadratic penalties on differences between active panel duties and on changes from current dimming settings.
-
-The optimization uses the experimentally determined gain matrix and can restrict operation to panels selected for the active zones. See the [control and optimization documentation](control-and-optimization/README.md) for the implementation and dashboard results.
-
-## Related publications
+## Related Publications
 
 - **Design of a Flicker-Free Smart Lighting Panel with a Custom Low-Cost Flicker Measurement Module** — IEEE SGC 2025. [DOI: 10.1109/SGC69320.2025.11372343](https://doi.org/10.1109/sgc69320.2025.11372343)
 - **On-the-Fly Frequency-Oriented Calibration for Real-Time, Power-Efficient, and Dynamic Control of Smart Lighting Systems** — IEEE ICEE 2026. [DOI: 10.1109/ICEE70628.2026.11710520](https://doi.org/10.1109/icee70628.2026.11710520)
 
 ---
 
-**Research, design, implementation, and experimental evaluation:** [Mostafa Amiri](https://github.com/Mostafaa-Amiri) · CST Lab, University of Tehran
+**Research, engineering, implementation, and experimental evaluation:** [Mostafa Amiri](https://github.com/Mostafaa-Amiri) · CST Lab, University of Tehran.

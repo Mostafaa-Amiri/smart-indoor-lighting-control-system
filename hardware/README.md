@@ -1,23 +1,26 @@
-# Hardware Development — Smart Indoor Lighting Control System
+# Hardware Development
 
-**University of Tehran | Custom lighting, sensing, control and measurement hardware**
+**Smart Indoor Lighting Control System**  
+*CST Lab · University of Tehran*
 
-This page documents the hardware developed and evaluated for the **Smart Indoor Lighting Control System** research platform. It includes three generations of smart LED lighting panels, two LED-driver approaches, networked illuminance and occupancy sensing, capacitive wall switches, and a custom flicker-measurement instrument.
+## Overview
 
-The project combines **PCB and circuit design, embedded electronics, communication interfaces, thermal considerations, prototyping and experimental evaluation**. Some modules are completed prototypes; conceptual designs are labeled accordingly. Photographs, PCB renders and diagrams are provided below.
+This section documents the custom lighting, sensing, control, and measurement hardware developed for the **Smart Indoor Lighting Control System**. It includes three generations of smart LED lighting panels, two LED-driver approaches, networked illuminance and occupancy sensing, capacitive wall switches, and a custom flicker-measurement instrument.
+
+The work combines **circuit and PCB design, embedded electronics, sensing, communication interfaces, thermal design, prototyping, and experimental evaluation**. Implemented hardware and proposed designs are identified in their respective sections. Photographs, PCB renders, schematics, and block diagrams are included throughout.
 
 ## Contents
 
-1. [Why custom hardware?](#why-custom-lighting-hardware)
-2. [Smart LED lighting panels — V1, V2, V3a and V3b](#1-smart-led-lighting-panels)
-3. [Smart LED drivers — V1 and V2](#2-smart-led-drivers)
-4. [Wi-Fi illuminance sensor](#3-wi-fi-illuminance-sensor)
-5. [Presence sensing — mmWave radar and camera](#4-presence-sensing)
-6. [Smart capacitive touch switch](#5-smart-capacitive-touch-switch)
-7. [Flicker measurement device — V1 and proposed V2](#6-flicker-measurement-device)
-8. [Scope and technical notes](#scope-and-technical-notes)
+1. [Design rationale](#design-rationale)
+2. [Smart LED lighting panels](#smart-led-lighting-panels)
+3. [Smart LED drivers](#smart-led-drivers)
+4. [Wi-Fi illuminance sensor](#wi-fi-illuminance-sensor)
+5. [Presence sensing](#presence-sensing)
+6. [Smart capacitive touch switch](#smart-capacitive-touch-switch)
+7. [Flicker measurement device](#flicker-measurement-device)
+8. [Related documentation](#related-documentation)
 
-## Why custom lighting hardware?
+## Design Rationale
 
 Although commercial smart luminaires were considered, a custom platform better suited the research requirements:
 
@@ -30,15 +33,14 @@ Although commercial smart luminaires were considered, a custom platform better s
 | **Design flexibility** | Adjust panel geometry, output power, light distribution, color characteristics and communication architecture for experiments. |
 | **System integration** | Maintain control over local communication, sensing, testing and laboratory integration. |
 
-**The goal was not simply to build another lamp:** it was to produce an adaptable experimental platform whose electrical, optical and control behavior could be investigated and modified.
+The goal was to develop an adaptable experimental platform with direct access to its **electrical, optical, sensing, and control characteristics**, rather than depend on fixed commercial interfaces.
 
----
 
-## 1. Smart LED Lighting Panels
+## Smart LED Lighting Panels
 
 Three principal generations were developed. **V1** explored two LED placement geometries; **V2** prioritized electrical isolation and PWM integrity; **V3** adopted a modular architecture designed for easier fabrication, cooling, servicing and power scaling.
 
-### V1 — Integrated PCB prototypes
+### V1 — Integrated PCB Prototypes
 
 The first generation integrated the **ESP32 Wi-Fi controller**, LED-driver circuitry and LED arrays on a single PCB. An I²C header was provided for connecting illuminance sensors.
 
@@ -61,7 +63,7 @@ This approach offered a compact, self-contained test platform without separate e
 
 *First-generation PCB assembly*
 
-**What we learned.** In prototype testing, visible flicker was observed and associated with interference involving the on-board Wi-Fi/control circuitry and the driver stages. The single-board architecture made control and power circuitry harder to separate. FR-4 construction without a dedicated heatsink also limited thermal management; the large, densely populated PCB was expensive and time-consuming to assemble and difficult to scale.
+**Experimental findings.** In prototype testing, visible flicker was observed and associated with interference involving the on-board Wi-Fi/control circuitry and the driver stages. The single-board architecture made control and power circuitry harder to separate. FR-4 construction without a dedicated heatsink also limited thermal management; the large, densely populated PCB was expensive and time-consuming to assemble and difficult to scale.
 
 <details>
 <summary><strong>V1 system diagram and driver schematic</strong> (2 images)</summary>
@@ -76,7 +78,7 @@ This approach offered a compact, self-contained test platform without separate e
 
 </details>
 
-### V2 — Isolated Wi-Fi control, standardized panel dimensions
+### V2 — Isolated Control and Standardized Dimensions
 
 The second generation moved to a **30 × 30 cm** panel and separated the Wi-Fi control electronics from the LED board. The control unit used an **ESP-12F (ESP8266)** instead of ESP32 to reduce cost.
 
@@ -94,7 +96,7 @@ The PWM signal was electrically isolated before reaching the LED board and then 
 
 *V2 system demonstrator: panel, controller, supply and phone*
 
-**Observed improvements:** the redesign eliminated the previously observed RF-related visible flicker under the tested conditions, improved PWM signal integrity, provided a standard panel form factor and introduced temperature-based power reduction.
+**Experimental improvements:** the redesign eliminated the previously observed RF-related visible flicker under the tested conditions, improved PWM signal integrity, provided a standard panel form factor and introduced temperature-based power reduction.
 
 **Remaining limitations:** the large PCB, high component count and prolonged assembly made production and repair difficult. Thermal control relied on derating rather than a physical heatsink. The distributed **PT4115** driver stages were not used near their available output capability; project notes indicate approximately **1.2 W per stage**, increasing overall component count.
 
@@ -123,7 +125,7 @@ The PWM signal was electrically isolated before reaching the LED board and then 
 
 </details>
 
-### V3a and V3b — Modular, scalable lighting panels
+### V3a and V3b — Modular Lighting Panels
 
 The third generation changed the construction approach: instead of mounting many individual LED chips on a custom large-area PCB, it used **commercially available 24 V LED strips (180 LEDs/m)** on a metal heat-dissipation structure, driven by **small replaceable PT4115 constant-current driver modules**.
 
@@ -150,7 +152,7 @@ The separate PT4115 module was laid out with attention to short switching loops,
 
 *V3b: 60 × 30 cm strip-based luminaire*
 
-**Advantages in the project:** lower custom-PCB area and assembly effort, simpler replacement of driver modules, heat sinking, and more flexible changes to panel size, power and LED arrangement. A separate-controller architecture also avoided the earlier co-location of Wi-Fi electronics and LED power stages.
+**Engineering improvements:** lower custom-PCB area and assembly effort, simpler replacement of driver modules, heat sinking, and more flexible changes to panel size, power and LED arrangement. A separate-controller architecture also avoided the earlier co-location of Wi-Fi electronics and LED power stages.
 
 <details>
 <summary><strong>V3 driver circuit and mechanical views</strong> (2 images)</summary>
@@ -166,7 +168,7 @@ The separate PT4115 module was laid out with attention to short switching loops,
 </details>
 
 <details>
-<summary><strong>V3b rear assembly</strong> (1 images)</summary>
+<summary><strong>V3b rear assembly</strong> (1 image)</summary>
 
 ![V3b: rear of panel showing driver distribution and wiring](images/led-panel-v3b/lighting-panel.jpg)
 
@@ -174,7 +176,7 @@ The separate PT4115 module was laid out with attention to short switching loops,
 
 </details>
 
-### Panel evolution — comparison
+### Experimental Comparison of Panel Generations
 
 The following values come from the project's version-comparison notes. **Illuminance measurements are not directly comparable without documented measurement geometry and conditions**, so they are included here as reported project results rather than standardized performance ratings.
 
@@ -188,15 +190,14 @@ The following values come from the project's version-comparison notes. **Illumin
 | Repairability | Difficult | Difficult | Modular replacement |
 | Production suitability (qualitative) | Low | Low | Improved |
 
-**Cost estimates** from the original notes were about **4.0 M, 5.5 M and 3.5 M** respectively (local currency and date to be documented). Because cost and illuminance measurement methods are not yet recorded here, they should not be treated as externally validated product comparisons.
+The project also recorded relative cost estimates of **4.0 million, 5.5 million, and 3.5 million** in local currency for V1, V2, and V3, respectively. These are prototype cost estimates rather than commercial quotations.
 
----
 
-## 2. Smart LED Drivers
+## Smart LED Drivers
 
 Beyond building complete lighting panels, another objective was a **retrofit path for making suitable commercially available LED panels controllable via custom Wi-Fi PWM electronics**.
 
-### Driver V1 — Low-cost PWM switching experiment
+### Driver V1 — MOSFET-Based PWM Prototype
 
 The first driver was an inexpensive proof of concept. It used an ESP-generated PWM command and a MOSFET switching stage. **Series resistance** was used to limit LED current, including current changes associated with temperature. It was **not a regulated constant-current driver**, and therefore was not the preferred final architecture.
 
@@ -204,7 +205,7 @@ The first driver was an inexpensive proof of concept. It used an ESP-generated P
 
 *First low-cost PWM/MOSFET LED switching prototype*
 
-### Driver V2 — Integrated Wi-Fi constant-current dimming design
+### Driver V2 — Wi-Fi Constant-Current Driver
 
 The later design combines a high-power **constant-current LED-driver IC**, **ESP-12F (ESP8266) Wi-Fi controller**, and an on-board **3.3 V regulator**. The goal is to provide dimmable current-regulated control for compatible external LED loads.
 
@@ -224,9 +225,8 @@ The later design combines a high-power **constant-current LED-driver IC**, **ESP
 
 *Wireless PWM dimming and LED-panel connection concept*
 
----
 
-## 3. Wi-Fi Illuminance Sensor
+## Wi-Fi Illuminance Sensor
 
 A simple networked illuminance node uses a **BH1750/GY-30 digital lux sensor** with a **NodeMCU (ESP8266)**. The microcontroller acquires multiple illuminance samples, averages or filters the readings, and transmits them to the central gateway/controller for daylight estimation and feedback control.
 
@@ -234,13 +234,12 @@ A simple networked illuminance node uses a **BH1750/GY-30 digital lux sensor** w
 
 *BH1750/GY-30 and NodeMCU Wi-Fi illuminance node*
 
----
 
-## 4. Presence Sensing
+## Presence Sensing
 
 Occupancy feedback was investigated using **mmWave radar** and **camera-based detection**. Both approaches support adaptive lighting decisions, but they have different measurement capabilities and privacy implications.
 
-### Wi-Fi mmWave radar sensors
+### Wi-Fi mmWave Radar Sensors
 
 **HLK-LD2420** and **HLK-LD2450** radar modules were evaluated with NodeMCU-based communication. Their outputs can be transmitted to the central gateway/controller.
 
@@ -256,7 +255,7 @@ Occupancy feedback was investigated using **mmWave radar** and **camera-based de
 
 *Hi-Link visualization of detected target positions*
 
-### Raspberry Pi camera + YOLO
+### Raspberry Pi Camera and YOLO
 
 An alternative prototype used a **Raspberry Pi 3 with camera** and **YOLO-based people detection**. Camera-based detection can support vision-based occupancy analysis, but it creates **privacy and data-handling requirements** that do not arise in the same way with non-imaging radar. For a deployment, on-device inference, image-retention policies and user consent must be considered.
 
@@ -264,9 +263,8 @@ An alternative prototype used a **Raspberry Pi 3 with camera** and **YOLO-based 
 
 *Raspberry Pi 3 and camera hardware for YOLO presence detection*
 
----
 
-## 5. Smart Capacitive Touch Switch
+## Smart Capacitive Touch Switch
 
 A custom **up-to-three-gang capacitive touch switch** was designed for local and Wi-Fi-enabled lighting control. The assembly integrates a touch/ESP control board with an appropriate mains-interface/power-board configuration. Designs were explored for installations **with and without a neutral conductor** (the photos and PCB renders document both variants).
 
@@ -315,13 +313,12 @@ The objective was to combine physical wall-switch operation with remote/app-base
 
 > **Electrical safety:** the power-board concepts involve mains-connected circuitry. The images document research prototypes and do not constitute installation instructions or evidence of regulatory compliance. Isolation, creepage/clearance, touch safety, thermal performance and enclosure requirements require proper verification before practical deployment.
 
----
 
-## 6. Flicker Measurement Device
+## Flicker Measurement Device
 
 Lighting flicker was characterized using a custom optical acquisition system and signal processing. Measurements can be transferred to a computer for **MATLAB-based time- and frequency-domain analysis**, including FFT-based characterization. An ESP32-based onboard processing approach was also considered.
 
-### V1 — Phototransistor-based instrument (built)
+### V1 — Phototransistor-Based Instrument
 
 The constructed prototype uses a **phototransistor illuminance sensor**, signal conversion/interface circuitry, a microcontroller and a computer connection. A reduced phototransistor load resistance can improve response speed, but decreases signal amplitude, creating a noise-versus-bandwidth trade-off. Higher-speed operation may therefore require low-noise amplification and careful analog front-end design.
 
@@ -337,7 +334,7 @@ The constructed prototype uses a **phototransistor illuminance sensor**, signal 
 
 *V1 acquisition chain: phototransistor, MCU and USB transfer*
 
-### V2 — Photodiode-based architecture (proposed, not built)
+### V2 — Proposed Photodiode-Based Architecture
 
 A second conceptual architecture replaces the phototransistor with a **photodiode**, offering a potentially faster optical response. Its schematic/block diagram illustrates a possible amplification/ADC and wireless-processing chain.
 
@@ -347,13 +344,9 @@ A second conceptual architecture replaces the phototransistor with a **photodiod
 
 *Proposed V2 photodiode signal acquisition and wireless node*
 
----
 
-## Scope and technical notes
+## Related Documentation
 
-- **Images:** original project photographs, PCB renders and diagrams, converted into web-friendly formats for display in GitHub. Image metadata is stripped from the copies in this documentation package.
-- **Hardware status:** development prototypes and experiments, not commercial product documentation or completed compliance testing.
-- **Results:** values reported in the project comparison need test geometry, instruments, operating conditions and uncertainty information for scientific comparison.
-- **Research links:** [Flicker-free smart lighting panel (SGC 2025)](https://doi.org/10.1109/sgc69320.2025.11372343) · [Frequency-oriented calibration (ICEE 2026)](https://doi.org/10.1109/icee70628.2026.11710520).
+[Main Project Overview](../README.md) · [Embedded Firmware](../firmware/README.md) · [Control and Optimization](../control-and-optimization/README.md) · [Signal Processing](../signal-processing/README.md)
 
-[← Return to main project overview](../README.md)
+**Related publications:** [Flicker-Free Smart Lighting Panel (SGC 2025)](https://doi.org/10.1109/sgc69320.2025.11372343) · [Frequency-Oriented Calibration (ICEE 2026)](https://doi.org/10.1109/icee70628.2026.11710520)
