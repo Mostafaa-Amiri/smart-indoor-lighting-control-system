@@ -67,4 +67,19 @@ After a desk becomes vacant, the panels serving that desk switch off following a
 
 ---
 
+## Copyright and Citation
+
+Copyright © 2026 Mostafa Amiri. All rights reserved.
+
+This repository is publicly accessible for research visibility
+and professional portfolio purposes. No open-source license
+is currently granted.
+
+For reuse permissions, see [Copyright and Permissions](COPYRIGHT.md).
+
+For academic attribution, see [CITATION.cff](CITATION.cff)
+and the related scientific publications.
+
+---
+
 **Research, engineering, implementation, and experimental evaluation:** [Mostafa Amiri](https://github.com/Mostafaa-Amiri) · CST Lab, University of Tehran.

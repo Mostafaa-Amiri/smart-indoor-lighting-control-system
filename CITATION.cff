@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use or discuss this project in academic work, please cite this repository and the relevant research publication(s)."
+type: software
+title: "Smart Indoor Lighting Control System"
+authors:
+  - family-names: "Amiri"
+    given-names: "Mostafa"
+abstract: "A research and experimental engineering platform for daylight-aware, occupancy-adaptive and optimization-based indoor lighting control."
+repository-code: "https://github.com/Mostafaa-Amiri/smart-indoor-lighting-control-system"
+url: "https://github.com/Mostafaa-Amiri/smart-indoor-lighting-control-system"
