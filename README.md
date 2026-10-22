@@ -65,7 +65,6 @@ After a desk becomes vacant, the panels serving that desk switch off following a
 - **Design of a Flicker-Free Smart Lighting Panel with a Custom Low-Cost Flicker Measurement Module** — IEEE SGC 2025. [DOI: 10.1109/SGC69320.2025.11372343](https://doi.org/10.1109/sgc69320.2025.11372343)
 - **On-the-Fly Frequency-Oriented Calibration for Real-Time, Power-Efficient, and Dynamic Control of Smart Lighting Systems** — IEEE ICEE 2026. [DOI: 10.1109/ICEE70628.2026.11710520](https://doi.org/10.1109/icee70628.2026.11710520)
 
----
 
 ## Research Collaboration
 
@@ -75,7 +74,6 @@ I'm open to research collaborations, PhD opportunities, and engineering projects
 
 Feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/mostafaa-amiri/).
 
----
 
 ## Copyright and Citation
 
