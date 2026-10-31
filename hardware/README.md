@@ -207,9 +207,9 @@ The first driver was an inexpensive proof of concept. It used an ESP-generated P
 
 ### Driver V2 — Wi-Fi Constant-Current Driver
 
-The later design combines a high-power **constant-current LED-driver IC**, **ESP-12F (ESP8266) Wi-Fi controller**, and an on-board **3.3 V regulator**. The goal is to provide dimmable current-regulated control for compatible external LED loads.
+The second-generation driver integrates a high-power **constant-current LED-driver IC**, an **ESP-12F (ESP8266) Wi-Fi controller**, and an on-board **3.3 V regulator** to provide adjustable dimming for compatible LED loads. **The PCB has now been fabricated, assembled, and functionally tested with an LED lighting panel**, progressing beyond the Altium design stage.
 
-**Reported design targets/features:**
+**Electrical design parameters and control features:**
 
 - **Input supply range:** approximately **5–60 V**, subject to device, regulator and component operating limits.
 - **LED output current:** configurable **up to 2 A**, subject to electrical and thermal derating.
@@ -224,6 +224,26 @@ The later design combines a high-power **constant-current LED-driver IC**, **ESP
 ![Wireless PWM dimming and LED-panel connection concept](images/smart-driver-v2/block-diagram.png)
 
 *Wireless PWM dimming and LED-panel connection concept*
+
+#### Assembled PCB and Functional Demonstration
+
+The assembled driver was evaluated with a connected LED panel. The photographs document the populated circuit board and the operating test setup; the accompanying video demonstrates the panel's dimming behavior. The demonstration establishes functional operation of this prototype, while the electrical ratings listed above describe design parameters rather than a fully characterized operating envelope.
+
+<p align="center">
+  <img src="images/smart-driver-v2/assembled-front.jpg" alt="Assembled V2 Wi-Fi LED driver PCB, component side" width="47%">
+  <img src="images/smart-driver-v2/assembled-back.jpg" alt="Assembled V2 LED driver PCB, solder side" width="47%">
+</p>
+
+<p align="center"><em>Fabricated V2 driver PCB: populated component side (left) and solder side (right).</em></p>
+
+<p align="center">
+  <img src="images/smart-driver-v2/working-test-setup-1.jpg" alt="V2 driver connected to the LED panel during a functional test" width="47%">
+  <a href="https://youtube.com/shorts/y5qzMRnB7PI?feature=share"><img src="images/smart-driver-v2/working-test-setup-2.jpg" alt="Working LED panel illuminated by the assembled V2 driver; click to watch the dimming demonstration" width="47%"></a>
+</p>
+
+<p align="center"><em>Functional test of the assembled driver with an LED panel. Click the photograph on the right to watch the demonstration.</em></p>
+
+**[Watch the working V2 LED driver and dimming demonstration on YouTube](https://youtube.com/shorts/y5qzMRnB7PI?feature=share)**
 
 
 ## Wi-Fi Illuminance Sensor
@@ -241,7 +261,7 @@ Occupancy feedback was investigated using **mmWave radar** and **camera-based de
 
 ### Wi-Fi mmWave Radar Sensors
 
-**HLK-LD2420** and **HLK-LD2450** radar modules were evaluated with NodeMCU-based communication. Their outputs can be transmitted to the central gateway/controller.
+**HLK-LD2420** and **HLK-LD2450** radar modules were integrated as networked occupancy-sensing nodes. The LD2420 implementation uses an ESP8266/NodeMCU, while the LD2450 implementation uses an **ESP32** to process radar data and communicate occupancy states to the central controller.
 
 - **LD2420:** presence and small-motion detection; the module was used for **single-target presence detection**, not multi-person tracking.
 - **LD2450:** supports tracking information for **up to three targets**, including estimated positions under suitable conditions.
@@ -255,6 +275,19 @@ Occupancy feedback was investigated using **mmWave radar** and **camera-based de
 
 *Hi-Link visualization of detected target positions*
 
+#### LD2450–ESP32 Enclosed Sensor Assembly
+
+The photographs below show the assembled **LD2450 radar and ESP32 sensing node**, including the internal electronics and the installed enclosure. Its associated firmware handles target information and publishes occupancy status to the lighting-control system.
+
+<p align="center">
+  <img src="images/radar-presence-sensor/ld2450-esp32-open-enclosure.jpg" alt="LD2450 radar and ESP32 presence sensor inside the opened housing" width="47%">
+  <img src="images/radar-presence-sensor/ld2450-esp32-closed-enclosure.jpg" alt="Enclosed LD2450 and ESP32 presence sensing module" width="47%">
+</p>
+
+<p align="center"><em>LD2450–ESP32 occupancy-sensing module: internal assembly (left) and closed enclosure (right).</em></p>
+
+[View the LD2450 ESP32 firmware](../firmware/README.md#multi-radar-occupancy-sensor--ld2450)
+
 ### Raspberry Pi Camera and YOLO
 
 An alternative prototype used a **Raspberry Pi 3 with camera** and **YOLO-based people detection**. Camera-based detection can support vision-based occupancy analysis, but it creates **privacy and data-handling requirements** that do not arise in the same way with non-imaging radar. For a deployment, on-device inference, image-retention policies and user consent must be considered.
@@ -262,6 +295,16 @@ An alternative prototype used a **Raspberry Pi 3 with camera** and **YOLO-based 
 ![Raspberry Pi 3 and camera hardware for YOLO presence detection](images/camera-presence-sensor/rbpi3-camera.jpg)
 
 *Raspberry Pi 3 and camera hardware for YOLO presence detection*
+
+### ESP32-CAM Image Acquisition Node
+
+An **ESP32-CAM** module was also implemented as a compact Wi-Fi camera node for the occupancy-detection pipeline. Its firmware provides JPEG image capture and HTTP access; computer-vision inference is performed separately from the embedded camera application.
+
+![ESP32-CAM image-acquisition module installed in its enclosure](images/camera-presence-sensor/esp32-cam-enclosure.jpg)
+
+*Physical ESP32-CAM imaging node mounted in its enclosure.*
+
+[View the ESP32-CAM firmware](../firmware/README.md#esp32-cam--image-acquisition)
 
 
 ## Smart Capacitive Touch Switch

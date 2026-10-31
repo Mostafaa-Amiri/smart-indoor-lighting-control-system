@@ -37,11 +37,15 @@ Reads LD2420 mmWave presence information, applies configurable detection and hol
 
 Uses an ESP32 to receive UART data from two LD2450 radars, process detected targets (up to three per radar), and publish zone-level occupancy states over MQTT. Includes filtering, saved settings, and OTA updates.
 
+**Hardware photographs:** [Open enclosure](../hardware/images/radar-presence-sensor/ld2450-esp32-open-enclosure.jpg) · [Closed enclosure](../hardware/images/radar-presence-sensor/ld2450-esp32-closed-enclosure.jpg)
+
 ### ESP32-CAM — Image Acquisition
 
 **[View Arduino sketch](esp32-camera-node/ESP32_CAM_V1_OTA/ESP32_CAM_V1_OTA.ino)**
 
 Provides JPEG image capture and HTTP endpoints for the separate computer-vision occupancy pipeline, along with camera status/configuration and OTA functionality. YOLO inference is implemented in the central-controller software, not in this camera sketch.
+
+**Hardware photograph:** [ESP32-CAM in its enclosure](../hardware/images/camera-presence-sensor/esp32-cam-enclosure.jpg)
 
 ## Implementation Notes
 
