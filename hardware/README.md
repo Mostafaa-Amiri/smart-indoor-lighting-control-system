@@ -11,7 +11,7 @@ The work combines **circuit and PCB design, embedded electronics, sensing, commu
 
 ## Contents
 
-1. [Design rationale](#design-rationale)
+1. [Design approach](#design-approach)
 2. [Smart LED lighting panels](#smart-led-lighting-panels)
 3. [Smart LED drivers](#smart-led-drivers)
 4. [Wi-Fi illuminance sensor](#wi-fi-illuminance-sensor)
@@ -20,7 +20,7 @@ The work combines **circuit and PCB design, embedded electronics, sensing, commu
 7. [Flicker measurement device](#flicker-measurement-device)
 8. [Related documentation](#related-documentation)
 
-## Design Rationale
+## Design Approach
 
 Although commercial smart luminaires were considered, a custom platform better suited the research requirements:
 
@@ -197,17 +197,17 @@ The project also recorded relative cost estimates of **4.0 million, 5.5 million,
 
 Beyond building complete lighting panels, another objective was a **retrofit path for making suitable commercially available LED panels controllable via custom Wi-Fi PWM electronics**.
 
-### Driver V1 — MOSFET-Based PWM Prototype
+### Preliminary MOSFET-Based PWM Test
 
-The first driver was an inexpensive proof of concept. It used an ESP-generated PWM command and a MOSFET switching stage. **Series resistance** was used to limit LED current, including current changes associated with temperature. It was **not a regulated constant-current driver**, and therefore was not the preferred final architecture.
+An initial low-cost test circuit served as a proof of concept. It used an ESP-generated PWM command and a MOSFET switching stage. **Series resistance** was used to limit LED current, including current changes associated with temperature. It was **not a regulated constant-current driver**, and therefore was not the preferred final architecture.
 
 ![First low-cost PWM/MOSFET LED switching prototype](images/smart-driver-v1/assembled.jpg)
 
 *First low-cost PWM/MOSFET LED switching prototype*
 
-### Driver V2 — Wi-Fi Constant-Current Driver
+### Smart LED Lighting Panel Driver — Wi-Fi Constant-Current Design
 
-The second-generation driver integrates a high-power **constant-current LED-driver IC**, an **ESP-12F (ESP8266) Wi-Fi controller**, and an on-board **3.3 V regulator** to provide adjustable dimming for compatible LED loads. **The PCB has now been fabricated, assembled, and functionally tested with an LED lighting panel**, progressing beyond the Altium design stage.
+The smart lighting panel driver integrates a high-power **constant-current LED-driver IC**, an **ESP-12F (ESP8266) Wi-Fi controller**, and an on-board **3.3 V regulator** to provide adjustable dimming for compatible LED loads. **The PCB has now been fabricated, assembled, and functionally tested with an LED lighting panel**, progressing beyond the Altium design stage.
 
 **Electrical design parameters and control features:**
 
@@ -217,33 +217,30 @@ The second-generation driver integrates a high-power **constant-current LED-driv
 - **Current-setting:** sense/configuration resistors set the target **LED current**. In a constant-current design, the LED-string voltage is determined by the load and available converter operating range; it is **not independently programmable by a resistor**.
 - **Protection objectives:** undervoltage lockout, overcurrent and thermal protection, open/short-load handling, and controlled startup, as applicable to the selected circuitry and driver IC. These features must be verified against the final schematic and test results; they are not claimed here as independently certified.
 
-![Second-generation Wi-Fi LED driver: integrated ESP-12F PCB render](images/smart-driver-v2/pcb-3d-altium.png)
+<p align="center">
+  <img src="images/smart-driver-v2/pcb-3d-altium.png" alt="Altium 3D rendering of the smart LED lighting panel driver PCB" width="30%">
+  <img src="images/smart-driver-v2/assembled-front.jpg" alt="Assembled smart LED lighting panel driver PCB, component side" width="33%">
+  <img src="images/smart-driver-v2/assembled-back.jpg" alt="Assembled smart LED lighting panel driver PCB, solder side" width="33%">
+</p>
 
-*Second-generation Wi-Fi LED driver: integrated ESP-12F PCB render*
+<p align="center"><em>Smart LED lighting panel driver: Altium PCB visualization (left), assembled component side (center), and solder side (right).</em></p>
 
 ![Wireless PWM dimming and LED-panel connection concept](images/smart-driver-v2/block-diagram.png)
 
 *Wireless PWM dimming and LED-panel connection concept*
 
-#### Assembled PCB and Functional Demonstration
+#### Assembly and Functional Demonstration
 
 The assembled driver was evaluated with a connected LED panel. The photographs document the populated circuit board and the operating test setup; the accompanying video demonstrates the panel's dimming behavior. The demonstration establishes functional operation of this prototype, while the electrical ratings listed above describe design parameters rather than a fully characterized operating envelope.
 
 <p align="center">
-  <img src="images/smart-driver-v2/assembled-front.jpg" alt="Assembled V2 Wi-Fi LED driver PCB, component side" width="47%">
-  <img src="images/smart-driver-v2/assembled-back.jpg" alt="Assembled V2 LED driver PCB, solder side" width="47%">
-</p>
-
-<p align="center"><em>Fabricated V2 driver PCB: populated component side (left) and solder side (right).</em></p>
-
-<p align="center">
-  <img src="images/smart-driver-v2/working-test-setup-1.jpg" alt="V2 driver connected to the LED panel during a functional test" width="47%">
-  <a href="https://youtube.com/shorts/y5qzMRnB7PI?feature=share"><img src="images/smart-driver-v2/working-test-setup-2.jpg" alt="Working LED panel illuminated by the assembled V2 driver; click to watch the dimming demonstration" width="47%"></a>
+  <img src="images/smart-driver-v2/working-test-setup-1.jpg" alt="Smart LED lighting panel driver connected to the LED panel during a functional test" width="47%">
+  <a href="https://youtube.com/shorts/y5qzMRnB7PI?feature=share"><img src="images/smart-driver-v2/working-test-setup-2.jpg" alt="Working LED panel illuminated by the assembled smart driver; click to watch the dimming demonstration" width="47%"></a>
 </p>
 
 <p align="center"><em>Functional test of the assembled driver with an LED panel. Click the photograph on the right to watch the demonstration.</em></p>
 
-**[Watch the working V2 LED driver and dimming demonstration on YouTube](https://youtube.com/shorts/y5qzMRnB7PI?feature=share)**
+**[Watch the smart LED lighting panel driver demonstration on YouTube](https://youtube.com/shorts/y5qzMRnB7PI?feature=share)**
 
 
 ## Wi-Fi Illuminance Sensor
@@ -271,10 +268,6 @@ Occupancy feedback was investigated using **mmWave radar** and **camera-based de
 
 *LD2420 radar sensor with ESP/NodeMCU module*
 
-![Hi-Link visualization of detected target positions](images/radar-presence-sensor/hilink-ui-app.png)
-
-*Hi-Link visualization of detected target positions*
-
 #### LD2450–ESP32 Enclosed Sensor Assembly
 
 The photographs below show the assembled **LD2450 radar and ESP32 sensing node**, including the internal electronics and the installed enclosure. Its associated firmware handles target information and publishes occupancy status to the lighting-control system.
@@ -285,6 +278,10 @@ The photographs below show the assembled **LD2450 radar and ESP32 sensing node**
 </p>
 
 <p align="center"><em>LD2450–ESP32 occupancy-sensing module: internal assembly (left) and closed enclosure (right).</em></p>
+
+![Hi-Link visualization of detected target positions](images/radar-presence-sensor/hilink-ui-app.png)
+
+*Hi-Link visualization of detected target positions from the LD2450 radar sensor.*
 
 [View the LD2450 ESP32 firmware](../firmware/README.md#multi-radar-occupancy-sensor--ld2450)
 
